@@ -1,0 +1,195 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import { getDeltaData } from '../../data/versions';
+import { getBreadcrumbSchema } from '../../lib/site';
+
+const deltaData = await getDeltaData();
+const latest = deltaData.android[0];
+
+const faqs = [
+  {
+    q: 'Is Delta Executor available as a native Windows application?',
+    a: 'No, Delta Executor is currently only available for Android and iOS devices. To use it on Windows PC, you need to run it through an Android emulator like BlueStacks or LDPlayer. This provides the same functionality and features as the mobile version.',
+  },
+  {
+    q: 'Which emulator works best with Delta Executor?',
+    a: 'BlueStacks 5 and LDPlayer 9 are the most recommended emulators based on community feedback. Both offer excellent compatibility with Roblox and Delta Executor. BlueStacks is more user-friendly for beginners, while LDPlayer uses fewer system resources.',
+  },
+  {
+    q: 'Why is my emulator running slowly?',
+    a: 'Slow performance is usually caused by virtualization being disabled in BIOS or insufficient RAM allocation. Make sure virtualization (VT-x for Intel, AMD-V for AMD) is enabled in your BIOS settings. Also, allocate at least 4GB RAM to the emulator in its settings.',
+  },
+  {
+    q: 'Is it safe to use an emulator for Delta Executor?',
+    a: 'Yes, reputable emulators like BlueStacks, LDPlayer, or NoxPlayer are generally safe to use. These are trusted applications used by millions of people worldwide. Just make sure to download them from their official websites and download Delta Executor only from our official source.',
+  },
+  {
+    q: 'Can I use Delta Executor on PC and mobile at the same time?',
+    a: 'Yes, you can have Delta Executor installed on multiple devices. However, your activation key may be linked to a specific device. If you encounter any issues, you can always generate a new key through our key system.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: 'How to Run Delta Executor on Windows PC',
+    description: 'A complete guide to running Delta Executor on Windows PC using an Android emulator like BlueStacks, LDPlayer, or NoxPlayer.',
+    image: 'https://deltaexecut.net/assets/Delta-Executor-Banner.webp',
+    totalTime: 'PT15M',
+    estimatedCost: { '@type': 'MonetaryAmount', currency: 'USD', value: '0' },
+    supply: [
+      { '@type': 'HowToSupply', name: 'Windows PC with 8GB+ RAM' },
+      { '@type': 'HowToSupply', name: 'Android Emulator (BlueStacks, LDPlayer, or NoxPlayer)' },
+      { '@type': 'HowToSupply', name: 'Delta Executor Android APK' },
+    ],
+    tool: [{ '@type': 'HowToTool', name: 'Android Emulator' }],
+    step: [
+      { '@type': 'HowToStep', name: 'Download an Android Emulator', text: 'Download and install BlueStacks, LDPlayer, or NoxPlayer on your Windows PC.', position: 1 },
+      { '@type': 'HowToStep', name: 'Configure the Emulator', text: 'Set up the emulator with recommended settings: 4GB RAM, 4 CPU cores, and enable virtualization.', position: 2 },
+      { '@type': 'HowToStep', name: 'Download Delta Executor APK', text: 'Download the Delta Executor Android APK from the official website.', position: 3 },
+      { '@type': 'HowToStep', name: 'Install Delta Executor', text: 'Drag and drop the APK file into the emulator or use the Install APK option.', position: 4 },
+      { '@type': 'HowToStep', name: 'Install Roblox', text: 'Install Roblox from the Google Play Store within the emulator.', position: 5 },
+      { '@type': 'HowToStep', name: 'Launch and activate', text: 'Open Delta Executor, follow the in-app key popup to get a free key, then start using it.', position: 6 },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+  getBreadcrumbSchema(Astro, [
+    { name: 'Home', path: '/' },
+    { name: 'Download', path: '/download' },
+    { name: 'Windows', path: '/download/windows' },
+  ]),
+];
+---
+
+<Layout
+  title={`Delta Executor v${latest.version} for PC (Windows) - How to Use with Android Emulator`}
+  description={`Learn how to run Delta Executor v${latest.version} on Windows PC using an Android emulator. Complete step-by-step guide for BlueStacks, LDPlayer & NoxPlayer setup.`}
+  canonicalPath="/download/windows"
+>
+  <Fragment slot="head">
+    {jsonLd.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
+  </Fragment>
+
+  <section class="bg-bg px-4 py-16 sm:px-6">
+    <div class="mx-auto max-w-3xl">
+      <nav class="text-sm text-text-muted">
+        <a href="/" class="hover:text-primary-light">Home</a> /
+        <a href="/download" class="hover:text-primary-light">Download</a> /
+        <span class="text-text">Windows</span>
+      </nav>
+
+      <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Delta Executor for PC</h1>
+      <p class="mt-2 text-text-muted">Delta Executor does not have a native Windows application. To use it on PC, you'll need to install an Android emulator first. This method is generally safe and provides the same experience as using it on an actual Android device.</p>
+
+      <div class="mt-8 flex gap-3 rounded-2xl border border-amber-500/30 bg-amber-500/5 p-5">
+        <Icon name="tabler:info-circle" class="h-5 w-5 shrink-0 text-amber-400" />
+        <p class="text-base text-text-muted">Windows version is discontinued in the traditional sense, there's no separate native build. Follow the guide below to run Delta on PC using an Android emulator.</p>
+      </div>
+
+      <section class="mt-10">
+        <h2 class="text-2xl font-bold text-text">Requirements</h2>
+        <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {[
+            ['RAM', '8 GB+ recommended'],
+            ['Free storage', '500 MB+'],
+            ['Emulator', 'BlueStacks 5 / LDPlayer 9'],
+            ['Native build', 'None, runs Android APK'],
+          ].map(([label, value]) => (
+            <div class="card rounded-xl border border-primary/10 p-4 text-center">
+              <p class="text-sm uppercase tracking-wider text-text-muted">{label}</p>
+              <p class="mt-1 text-base font-semibold text-text">{value}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="mt-10">
+        <h2 class="text-2xl font-bold text-text">Setup Steps</h2>
+        <ol class="mt-4 list-decimal space-y-2.5 pl-5 text-base text-text-muted">
+          <li>Download and install BlueStacks 5 or LDPlayer 9 from their official sites.</li>
+          <li>Open the emulator settings and allocate at least 4GB RAM and 4 CPU cores.</li>
+          <li>Enable virtualization in your BIOS if you haven't already: VT-x for Intel, AMD-V for AMD.</li>
+          <li>Download the Delta Executor Android APK (v{latest.version}) from the <a href="/download/android" class="text-primary-light underline-offset-4 transition-colors hover:text-accent hover:underline">Android download page</a>.</li>
+          <li>Drag and drop the APK file into the emulator window to install it, or use "Install APK" in the sidebar.</li>
+          <li>Open the Play Store inside the emulator and install Roblox.</li>
+          <li>Launch Delta Executor from the emulator. A key entry popup will appear, follow the link inside it to get a free key.</li>
+        </ol>
+      </section>
+
+      <section class="mt-10 rounded-2xl border border-emerald-500/25 bg-emerald-500/5 p-7">
+        <h2 class="flex items-center gap-2 text-2xl font-bold text-text">
+          <Icon name="tabler:circle-check" class="h-6 w-6 text-emerald-400" />Confirm it's actually working
+        </h2>
+        <div class="mt-3 space-y-3 text-base leading-relaxed text-text-muted">
+          <p>Once you're inside a Roblox game running through the emulator, the floating Delta icon appearing over the game window is the real sign the install worked. Open the script hub from there and try running any script, if it executes, you're set.</p>
+          <p>If the emulator feels sluggish even after this, that's almost always allocated RAM/CPU being too low for your actual hardware, revisit the emulator's performance settings rather than assuming Delta itself is the cause.</p>
+        </div>
+      </section>
+
+      <section class="mt-10">
+        <h2 class="text-2xl font-bold text-text">Troubleshooting</h2>
+        <p class="mt-2 text-base text-text-muted">Most PC issues come from the emulator layer itself rather than Delta, since the same APK runs fine on a real Android phone.</p>
+        <div class="card mt-4 overflow-hidden rounded-2xl">
+          <table class="w-full text-left text-base">
+            <thead>
+              <tr class="border-b border-primary/20 bg-bg-card">
+                <th class="px-5 py-3 text-sm font-semibold uppercase tracking-wide text-text-muted">What you're seeing</th>
+                <th class="px-5 py-3 text-sm font-semibold uppercase tracking-wide text-text-muted">What to do</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['Emulator won\u2019t start / black screen', 'Virtualization (VT-x/AMD-V) is likely disabled in your BIOS. Enable it, restart, then relaunch the emulator.'],
+                ['APK won\u2019t install', 'Use the emulator\u2019s own "Install APK" button in the sidebar instead, drag-and-drop support varies by emulator version.'],
+                ['Severe lag or stuttering', 'Increase allocated RAM and CPU cores in the emulator\u2019s settings, then fully restart the emulator, not just the app.'],
+                ['Roblox won\u2019t open inside the emulator', 'Make sure you installed Roblox through the emulator\u2019s own Play Store, not a separately downloaded APK.'],
+                ['Antivirus deletes or blocks the APK', 'Expected for this category of software, temporarily allow the file during install only, then re-enable normal scanning.'],
+                ['Stuck on the key popup', "Tap the link inside the popup itself, there's no separate key page on this website."],
+              ].map((row) => (
+                <tr class="border-b border-primary/10 last:border-0">
+                  <td class="px-5 py-3 font-medium text-text">{row[0]}</td>
+                  <td class="px-5 py-3 text-text-muted">{row[1]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mt-10">
+        <h2 class="text-2xl font-bold text-text">Frequently Asked Questions</h2>
+        <div class="mt-4 space-y-3">
+          {faqs.map((f) => (
+            <details class="group card rounded-xl border border-primary/10 p-5">
+              <summary class="flex cursor-pointer list-none items-center justify-between text-base font-semibold text-text marker:content-none">
+                {f.q}
+                <Icon name="tabler:chevron-down" class="h-5 w-5 shrink-0 text-accent transition-transform duration-300 group-open:rotate-180" />
+              </summary>
+              <p class="mt-3 text-base leading-relaxed text-text-muted">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="mt-10 card rounded-2xl border border-primary/10 p-8 text-center">
+        <h2 class="text-2xl font-bold text-text">Ready to Get Started?</h2>
+        <p class="mt-2 text-base text-text-muted">Download Delta Executor for Android and start using it on your PC today. If you need any help, our community is always ready to assist you.</p>
+        <a href="/download/android" class="btn-primary mt-5 inline-flex items-center gap-2 rounded-xl px-6 py-3 text-base font-semibold text-white">
+          Get the Android APK
+        </a>
+      </section>
+    </div>
+  </section>
+</Layout>

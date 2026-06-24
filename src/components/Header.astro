@@ -1,0 +1,51 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const navItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Download', href: '/download' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-primary/20 bg-bg/95 backdrop-blur transition-shadow" style="box-shadow: 0 1px 0 rgba(99,102,241,0.1);">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
+    <a href="/" class="flex items-center gap-3 transition-opacity hover:opacity-90">
+      <img src="/assets/Delta-Executor-Icon.webp" alt="Delta Executor Logo" class="h-11 w-11" width="44" height="44" />
+      <span class="text-xl font-semibold text-text">Delta Executor</span>
+    </a>
+
+    <button id="mobile-nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav" class="text-2xl text-text sm:hidden">
+      <Icon name="tabler:menu-2" id="mobile-nav-icon-open" class="h-6 w-6" />
+      <Icon name="tabler:x" id="mobile-nav-icon-close" class="hidden h-6 w-6" />
+    </button>
+
+    <nav id="main-nav" class="hidden items-center gap-8 sm:flex" aria-label="Main navigation">
+      {navItems.map((item) => (
+        <a href={item.href} class="relative text-base text-text-muted transition-colors duration-200 hover:text-text after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full">
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+
+  <!-- Mobile dropdown panel, separate from the desktop nav above so the
+       desktop layout (flex row) and mobile layout (stacked dropdown) don't
+       fight over the same hidden/flex toggle. -->
+  <nav
+    id="mobile-nav-panel"
+    class="hidden flex-col gap-1 border-t border-primary/20 bg-bg px-6 py-4 sm:hidden"
+    aria-label="Mobile navigation"
+  >
+    {navItems.map((item) => (
+      <a href={item.href} class="rounded-lg px-3 py-2.5 text-base text-text-muted transition-colors hover:bg-bg-card hover:text-text">
+        {item.label}
+      </a>
+    ))}
+  </nav>
+</header>
+
+<script>
+  import '../scripts/mobile-menu.ts';
+</script>

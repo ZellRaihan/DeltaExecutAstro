@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import { getDeltaData } from '../data/versions';
+import { getBreadcrumbSchema } from '../lib/site';
+
+const deltaData = await getDeltaData();
+const android = deltaData.android[0];
+const ios = deltaData.ios[0];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Delta Executor',
+    applicationCategory: 'GameApplication',
+    operatingSystem: 'Android, iOS, Windows',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Organization', name: 'Delta Executor Team', url: 'https://deltaexecut.net' },
+    potentialAction: [
+      {
+        '@type': 'DownloadAction',
+        target: [
+          {
+            '@type': 'EntryPoint',
+            urlTemplate: 'https://deltaexecut.net/download/windows',
+            name: 'PC Setup Guide (Emulator)',
+            actionPlatform: ['http://schema.org/DesktopWebPlatform'],
+          },
+          {
+            '@type': 'EntryPoint',
+            urlTemplate: 'https://deltaexecut.net/download/ios',
+            name: 'Download for iOS',
+            actionPlatform: ['http://schema.org/IOSPlatform'],
+          },
+          {
+            '@type': 'EntryPoint',
+            urlTemplate: 'https://deltaexecut.net/download/android',
+            name: 'Download for Android',
+            actionPlatform: ['http://schema.org/AndroidPlatform'],
+          },
+        ],
+      },
+    ],
+  },
+  getBreadcrumbSchema(Astro, [
+    { name: 'Home', path: '/' },
+    { name: 'Download', path: '/download' },
+  ]),
+];
+
+const platforms = [
+  {
+    icon: 'tabler:brand-android',
+    label: 'Android',
+    href: '/download/android',
+    version: android.version,
+    size: android.fileSize,
+    note: 'No root required',
+  },
+  {
+    icon: 'tabler:brand-apple',
+    label: 'iOS',
+    href: '/download/ios',
+    version: ios.version,
+    size: ios.fileSize,
+    note: 'No jailbreak required',
+  },
+  {
+    icon: 'tabler:brand-windows',
+    label: 'Windows PC',
+    href: '/download/windows',
+    version: android.version,
+    size: 'via emulator',
+    note: '~15 min setup',
+  },
+];
+---
+
+<Layout
+  title={`Download Delta Executor v${android.version} | Free Roblox Exploit for iOS & Android`}
+  description={`Download Delta Executor for free. Latest versions: Android v${android.version} / iOS v${ios.version}. The most powerful Roblox exploit for iOS and Android. PC users can run via emulator.`}
+  canonicalPath="/download"
+>
+  <Fragment slot="head">
+    {jsonLd.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
+  </Fragment>
+
+  <section class="bg-bg px-6 py-16">
+    <div class="mx-auto max-w-3xl text-center">
+      <h1 class="text-4xl font-bold text-text">Download Delta Executor</h1>
+      <p class="mt-3 text-lg text-text-muted">Choose your platform to get started.</p>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-3">
+        {platforms.map((p) => (
+          <a href={p.href} class="card rounded-2xl p-7 text-left">
+            <Icon name={p.icon} class="h-10 w-10 text-primary-light" />
+            <h2 class="mt-4 text-xl font-semibold text-text">{p.label}</h2>
+            <p class="mt-1.5 text-sm text-text-muted">v{p.version} &middot; {p.size}</p>
+            <span class="mt-3 inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
+              <Icon name="tabler:check" class="h-3.5 w-3.5" />{p.note}
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,109 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getSiteUrl } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath: string;
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalPath,
+  ogImage = '/assets/Delta-Executor-Banner.webp',
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = getSiteUrl(Astro);
+const canonicalUrl = `${siteUrl}${canonicalPath === '/' ? '/' : canonicalPath}`;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+
+// Present on every page, matching the old site's pattern of repeating
+// Organization schema site-wide so every page consistently associates with
+// the same entity, rather than only on the About page.
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Delta Executor',
+  url: siteUrl,
+  logo: `${siteUrl}/assets/Delta-Executor-Icon.webp`,
+  description: 'The team behind Delta Executor, a free Roblox script executor for iOS and Android.',
+  foundingDate: '2021',
+  sameAs: ['https://discord.com/invite/deltax', 'https://t.me/deltadyn'],
+  knowsAbout: ['Roblox', 'Script Execution', 'Game Exploits', 'Software Development'],
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js), carried over from the live site as-is -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TNVTZL8TWJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { (window.dataLayer as any[]).push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-TNVTZL8TWJ');
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google AdSense, carried over from the live site as-is -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3793157906983146" crossorigin="anonymous"></script>
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Delta Executor Team" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalUrl} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImageUrl} />
+
+    <!-- Modern browsers: SVG scales cleanly at any size/density -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Sized PNG fallbacks -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <!-- Desktop/taskbar favicon at a larger fixed size some OS UI requests directly -->
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <!-- Legacy fallback -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <!-- iOS home screen / bookmark icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <!-- Label shown under the icon when added to an iOS home screen -->
+    <meta name="apple-mobile-web-app-title" content="Delta Executor" />
+    <!-- Android/Chrome home screen icons -->
+    <link rel="manifest" href="/site.webmanifest" />
+    <!-- Tints mobile browser UI to match the brand -->
+    <meta name="theme-color" content="#0f172a" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+
+    <slot name="head" />
+  </head>
+  <body class="bg-bg text-text font-sans antialiased">
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

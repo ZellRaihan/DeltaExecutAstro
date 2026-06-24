@@ -1,0 +1,21 @@
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Content-Security-Policy: default-src 'self'; img-src 'self' data: https://i.ytimg.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self' 'sha256-K0HsQ1KM2862f/Vrfub1sl87cOmocYKYmnFo6ibCUiE=' 'sha256-hBveCUgoWaRpblrF7RWlmLSR5Qui7cKAI7vgw/ZynRo=' 'sha256-dxsXVQS49cPK0tjsuxwWQ5HzIL/ZBU9jxIgrFA6cdf8=' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://static.cloudflareinsights.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://www.googletagmanager.com; connect-src 'self' https://delta-admin-panel.rhnsardar4.workers.dev https://cloudflareinsights.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://www.google-analytics.com https://analytics.google.com https://www.google.com; frame-src https://www.youtube.com https://googleads.g.doubleclick.net; frame-ancestors 'none'
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/favicon.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+/favicon.ico
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML pages should always revalidate, so a content update (new version,
+# fixed copy) shows up immediately rather than serving a stale cached page.
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate

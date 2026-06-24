@@ -1,0 +1,206 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import { getDeltaData } from '../../data/versions';
+import { getBreadcrumbSchema } from '../../lib/site';
+
+const deltaData = await getDeltaData();
+const latest = deltaData.android[0];
+const older = deltaData.android.slice(1);
+
+const faqs = [
+  {
+    q: 'Is Delta Executor safe to use on Android?',
+    a: "Using any third-party script executor goes against Roblox's Terms of Use, and Roblox can ban accounts found using one. We won't claim otherwise. Many users report long-term use without issues, but no executor can honestly guarantee permanent, undetectable status.",
+  },
+  {
+    q: 'Why does my antivirus flag the Android APK?',
+    a: "This is common across this entire category of software, since executors interact with game memory in ways antivirus tools are designed to flag. It doesn't necessarily mean the file is malicious, but always confirm you downloaded it from deltaexecut.net specifically.",
+  },
+  {
+    q: 'Do I need to enable anything special to install the APK?',
+    a: 'Yes. Android blocks installs from outside the Play Store by default. Go to Settings, then Security, and enable "Install from Unknown Sources" before opening the downloaded file.',
+  },
+  {
+    q: 'Why does Delta Executor ask for a key when I open it?',
+    a: 'The first time you launch the app, it shows a key entry popup with a link to get a free key. This happens inside the app itself, not on this website, so follow the link in that popup rather than looking for a key page here.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Delta Executor for Android',
+    operatingSystem: 'Android',
+    applicationCategory: 'GameApplication',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    softwareVersion: latest.version,
+    fileSize: latest.fileSize,
+    description: 'Delta Executor is a third-party Roblox script executor for Android, distributed as a native APK, no root required.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+  getBreadcrumbSchema(Astro, [
+    { name: 'Home', path: '/' },
+    { name: 'Download', path: '/download' },
+    { name: 'Android', path: '/download/android' },
+  ]),
+];
+---
+
+<Layout
+  title={`Download Delta Executor v${latest.version} for Android | Free Roblox Script Executor`}
+  description={`Download Delta Executor v${latest.version} for Android (${latest.fileSize}). Native APK, no root required. Free script executor for Roblox, updated ${latest.released}.`}
+  canonicalPath="/download/android"
+>
+  <Fragment slot="head">
+    {jsonLd.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
+  </Fragment>
+
+  <section class="bg-bg px-4 py-16 sm:px-6">
+    <div class="mx-auto max-w-3xl">
+      <nav class="text-sm text-text-muted">
+        <a href="/" class="hover:text-primary-light">Home</a> /
+        <a href="/download" class="hover:text-primary-light">Download</a> /
+        <span class="text-text">Android</span>
+      </nav>
+
+      <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Delta Executor for Android</h1>
+      <p class="mt-2 text-text-muted">Native Android APK, no root required.</p>
+
+      <div class="mt-8 rounded-2xl border border-primary/30 card p-7">
+        <div class="flex flex-wrap items-center gap-4 text-base text-text-muted">
+          <span class="flex items-center gap-1.5"><Icon name="tabler:git-branch" class="h-4 w-4" />v{latest.version}</span>
+          <span class="flex items-center gap-1.5"><Icon name="tabler:file-zip" class="h-4 w-4" />{latest.fileSize}</span>
+          <span class="flex items-center gap-1.5"><Icon name="tabler:calendar" class="h-4 w-4" />{latest.released}</span>
+        </div>
+        {latest.downloadUrl ? (
+          <a href={latest.downloadUrl} class="btn-primary mt-5 inline-flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-semibold text-white">
+            <Icon name="tabler:download" class="h-5 w-5" />Download v{latest.version} for Android
+          </a>
+        ) : (
+          <p class="mt-5 text-base text-text-muted">Download link not published yet for this version.</p>
+        )}
+        <p class="mt-4 text-sm text-text-muted">
+          On a PC instead?
+          <a href="/download/windows" class="font-medium text-primary-light underline-offset-4 transition-colors hover:text-accent hover:underline">See the emulator guide &rarr;</a>
+        </p>
+      </div>
+
+      <section class="mt-10">
+        <h2 class="text-2xl font-bold text-text">Requirements</h2>
+        <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {[
+            ['Android version', '8.0+'],
+            ['Free storage', '500 MB+'],
+            ['RAM', '3 GB+'],
+            ['Root required', 'No'],
+          ].map(([label, value]) => (
+            <div class="card rounded-xl border border-primary/10 p-4 text-center">
+              <p class="text-sm uppercase tracking-wider text-text-muted">{label}</p>
+              <p class="mt-1 text-base font-semibold text-text">{value}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="mt-10">
+        <h2 class="text-2xl font-bold text-text">How to Install</h2>
+        <ol class="mt-4 list-decimal space-y-2.5 pl-5 text-base text-text-muted">
+          <li>Download the APK file from the button above.</li>
+          <li>Open Settings, then Security, and enable "Install from Unknown Sources."</li>
+          <li>Open the downloaded APK file and tap Install.</li>
+          <li>If Play Protect shows a warning, select "Install Anyway." This is expected for executors.</li>
+          <li>Wait for the installation to finish, then open Delta Executor from your app drawer.</li>
+          <li>Grant the permissions it asks for. A key entry popup will appear, follow the link inside it to get a free key, then enter it when prompted.</li>
+        </ol>
+      </section>
+
+      <section class="mt-10 rounded-2xl border border-emerald-500/25 bg-emerald-500/5 p-7">
+        <h2 class="flex items-center gap-2 text-2xl font-bold text-text">
+          <Icon name="tabler:circle-check" class="h-6 w-6 text-emerald-400" />Confirm it's actually working
+        </h2>
+        <div class="mt-3 space-y-3 text-base leading-relaxed text-text-muted">
+          <p>Once Delta is open and you've entered your key, the clearest sign it's working is the floating Delta icon appearing over your screen once you're inside a Roblox game. Tap it to open the script hub, if scripts load and the execute button responds, the install is good.</p>
+          <p>If you want to check the exact version your copy is running, most scripts can call a built-in identification function from the in-game script editor, useful if you're reporting an issue and need to state your exact build rather than guessing.</p>
+        </div>
+      </section>
+
+      <section class="mt-10">
+        <h2 class="text-2xl font-bold text-text">Installation Troubleshooting</h2>
+        <p class="mt-2 text-base text-text-muted">Most install problems on Android trace back to one of a handful of causes.</p>
+        <div class="card mt-4 overflow-hidden rounded-2xl">
+          <table class="w-full text-left text-base">
+            <thead>
+              <tr class="border-b border-primary/20 bg-bg-card">
+                <th class="px-5 py-3 text-sm font-semibold uppercase tracking-wide text-text-muted">What you're seeing</th>
+                <th class="px-5 py-3 text-sm font-semibold uppercase tracking-wide text-text-muted">What to do</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['App not installed / invalid package', 'Uninstall any previous Delta APK completely first, then reinstall. A partial old install left behind is the most common cause.'],
+                ['Blocked by Play Protect', 'Expected for this category of app. Tap "Install Anyway" when prompted, this warning appears for every executor, not just Delta.'],
+                ['Install blocked / unknown sources', 'Go to Settings, then Security, and enable "Install from Unknown Sources" for your browser or file manager before opening the APK again.'],
+                ['Parse error', "Usually means the download didn't finish completely. Delete the file and download it again rather than trying to repair it."],
+                ['App crashes on open', 'Force-stop the app from Android settings, then relaunch. If it persists, uninstall, restart your device, and reinstall fresh.'],
+                ['Stuck on the key popup', "Tap the link inside the popup itself, there's no separate key page on this website to search for."],
+              ].map((row) => (
+                <tr class="border-b border-primary/10 last:border-0">
+                  <td class="px-5 py-3 font-medium text-text">{row[0]}</td>
+                  <td class="px-5 py-3 text-text-muted">{row[1]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {older.length > 0 && (
+        <section class="mt-10">
+          <h2 class="text-2xl font-bold text-text">Previous Versions</h2>
+          <div class="mt-4 space-y-2.5">
+            {older.map((v) => (
+              <div class="card flex items-center justify-between rounded-xl border border-primary/10 p-4 text-base">
+                <div>
+                  <span class="font-semibold text-text">v{v.version}</span>
+                  <span class="ml-3 text-text-muted">{v.fileSize} &middot; {v.released}</span>
+                </div>
+                {v.downloadUrl ? (
+                  <a href={v.downloadUrl} class="rounded-lg border border-primary/40 px-4 py-2 text-sm font-medium transition-colors hover:border-accent">Download</a>
+                ) : (
+                  <span class="text-sm text-text-muted">Unavailable</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section class="mt-10">
+        <h2 class="text-2xl font-bold text-text">Frequently Asked Questions</h2>
+        <div class="mt-4 space-y-3">
+          {faqs.map((f) => (
+            <details class="group card rounded-xl border border-primary/10 p-5">
+              <summary class="flex cursor-pointer list-none items-center justify-between text-base font-semibold text-text marker:content-none">
+                {f.q}
+                <Icon name="tabler:chevron-down" class="h-5 w-5 shrink-0 text-accent transition-transform duration-300 group-open:rotate-180" />
+              </summary>
+              <p class="mt-3 text-base leading-relaxed text-text-muted">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+    </div>
+  </section>
+</Layout>

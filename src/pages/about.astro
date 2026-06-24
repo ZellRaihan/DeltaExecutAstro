@@ -1,0 +1,99 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import { getBreadcrumbSchema } from '../lib/site';
+
+const jsonLd = [
+  getBreadcrumbSchema(Astro, [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+  ]),
+];
+---
+
+<Layout
+  title="About Us - Delta Executor | Our Team & Mission"
+  description="Learn about the team behind Delta Executor, the #1 free Roblox exploit. Discover our mission, values, and the story of how we're revolutionizing Roblox scripting."
+  canonicalPath="/about"
+>
+  <Fragment slot="head">
+    {jsonLd.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
+  </Fragment>
+
+  <section class="bg-bg px-4 py-16 sm:px-6">
+    <div class="mx-auto max-w-3xl">
+      <h1 class="text-3xl font-bold sm:text-4xl">About Delta Executor</h1>
+
+      <section class="mt-10 rounded-lg border border-primary/10 card p-6">
+        <div class="flex items-center gap-3">
+          <Icon name="tabler:rocket" class="inline h-4 w-4 text-2xl" />
+          <h2 class="text-xl font-bold">Our Mission</h2>
+        </div>
+        <p class="mt-3 text-sm text-text">At Delta Executor, our mission is to provide the Roblox community with the most powerful, reliable, and secure scripting tool available. We believe in empowering players to enhance their gaming experience through innovative technology while maintaining the highest standards of security and performance.</p>
+      </section>
+
+      <section class="mt-10">
+        <h2 class="text-xl font-bold">Our Story</h2>
+        <div class="mt-3 space-y-4 text-sm text-text">
+          <p>Delta Executor began as a passion project in 2021 when a small team of developers recognized the limitations of existing Roblox executors. Frustrated by frequent crashes, detection issues, and poor script compatibility, they set out to create something better.</p>
+          <p>What started as a simple script executor quickly evolved into a comprehensive platform as the team expanded and incorporated feedback from early users. Through continuous iteration and improvement, Delta Executor has grown to become the preferred choice for millions of Roblox enthusiasts worldwide.</p>
+          <p>In 2023, we reached a significant milestone with the release of our mobile versions, making Delta Executor the first truly cross-platform Roblox executor available on Windows, iOS, and Android devices.</p>
+        </div>
+      </section>
+
+      <!--
+        Note: this section previously named four specific people (Alex Chen,
+        Sarah Johnson, Michael Rodriguez, Emily Zhang) with bios, already
+        flagged at the start of this project as fabricated, unverifiable
+        personas, no photos, no real identity behind them. Per explicit
+        instruction, the names are removed while keeping the same team
+        structure and roles.
+      -->
+      <section class="mt-10">
+        <h2 class="text-xl font-bold">Meet Our Team</h2>
+        <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {[
+            ['Lead Developer', 'Leads the technical direction of Delta Executor, with a background in software development and game modding.'],
+            ['Security', 'Works on keeping Delta Executor functioning against current anti-cheat systems and addressing potential vulnerabilities.'],
+            ['UI/UX Design', "Responsible for Delta's interface, focusing on a seamless user experience across all platforms."],
+            ['Community', "Bridges the gap between users and developers, gathering feedback and ensuring the community's voice is heard in every update."],
+          ].map(([role, bio]) => (
+            <div class="rounded-lg border border-primary/10 card p-5">
+              <Icon name="tabler:user-circle" class="inline h-4 w-4 text-2xl" />
+              <h3 class="mt-2 font-semibold">{role}</h3>
+              <p class="mt-1.5 text-sm text-text-muted">{bio}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="mt-10">
+        <h2 class="text-xl font-bold">Our Values</h2>
+        <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {[
+            ['tabler:shield', 'Security', 'We prioritize the security of our users, ensuring Delta Executor is free from malware and implementing robust measures to prevent detection and bans.'],
+            ['tabler:bolt', 'Performance', "We're committed to delivering exceptional performance, with fast execution speeds and minimal impact on game performance."],
+            ['tabler:refresh', 'Innovation', 'We continuously push boundaries, introducing new features and improvements to stay ahead of the competition and meet evolving user needs.'],
+            ['tabler:users', 'Community', 'We value our community and actively engage with users to gather feedback, provide support, and build a collaborative environment.'],
+          ].map(([icon, title, desc]) => (
+            <div class="card card rounded-2xl p-5">
+              <Icon name={icon} class="h-6 w-6 text-accent" />
+              <h3 class="mt-2 font-medium text-text">{title}</h3>
+              <p class="mt-1.5 text-sm text-text-muted">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="mt-10 rounded-lg border border-primary/10 card p-8 text-center">
+        <h2 class="text-xl font-bold">Join Our Community</h2>
+        <p class="mt-2 text-sm text-text">Become part of the growing Delta Executor community. Connect with fellow users, share scripts, get support, and stay updated on the latest developments.</p>
+        <a href="https://discord.com/invite/deltax" class="mt-4 inline-block rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-white hover:bg-primary-dark">
+          <Icon name="tabler:brand-discord" class="inline h-4 w-4 mr-2" />Join Our Discord
+        </a>
+      </section>
+    </div>
+  </section>
+</Layout>
