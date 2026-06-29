@@ -1,0 +1,149 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import { getDeltaData } from '../data/versions';
+import { getBreadcrumbSchema } from '../lib/site';
+
+const deltaData = await getDeltaData();
+const android = deltaData.android[0];
+const ios = deltaData.ios[0];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Delta Executor',
+    applicationCategory: 'GameApplication',
+    operatingSystem: 'Android, iOS, Windows',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author: { '@type': 'Organization', name: 'Delta Executor Team', url: 'https://deltaaexecutor.net' },
+    potentialAction: [
+      {
+        '@type': 'DownloadAction',
+        target: [
+          {
+            '@type': 'EntryPoint',
+            urlTemplate: 'https://deltaaexecutor.net/download/windows',
+            name: 'PC Setup Guide (Emulator)',
+            actionPlatform: ['http://schema.org/DesktopWebPlatform'],
+          },
+          {
+            '@type': 'EntryPoint',
+            urlTemplate: 'https://deltaaexecutor.net/download/ios',
+            name: 'Download for iOS',
+            actionPlatform: ['http://schema.org/IOSPlatform'],
+          },
+          {
+            '@type': 'EntryPoint',
+            urlTemplate: 'https://deltaaexecutor.net/download/android',
+            name: 'Download for Android',
+            actionPlatform: ['http://schema.org/AndroidPlatform'],
+          },
+        ],
+      },
+    ],
+  },
+  getBreadcrumbSchema(Astro, [
+    { name: 'Home', path: '/' },
+    { name: 'Download', path: '/download' },
+  ]),
+];
+
+const platforms = [
+  {
+    icon: 'tabler:brand-android',
+    label: 'Android',
+    href: '/download/android',
+    version: android.version,
+    size: android.fileSize,
+    note: 'No root required',
+  },
+  {
+    icon: 'tabler:brand-apple',
+    label: 'iOS',
+    href: '/download/ios',
+    version: ios.version,
+    size: ios.fileSize,
+    note: 'No jailbreak required',
+  },
+  {
+    icon: 'tabler:brand-windows',
+    label: 'Windows PC',
+    href: '/download/windows',
+    version: android.version,
+    size: 'via emulator',
+    note: '~15 min setup',
+  },
+];
+---
+
+<Layout
+  title={`Download Delta Executor v${android.version} | Free Roblox Exploit for iOS & Android`}
+  description={`Download Delta Executor for free. Latest versions: Android v${android.version} / iOS v${ios.version}. The most powerful Roblox exploit for iOS and Android. PC users can run via emulator.`}
+  canonicalPath="/download"
+>
+  <Fragment slot="head">
+    {jsonLd.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
+  </Fragment>
+
+  <section class="bg-bg px-6 py-16">
+    <div class="mx-auto max-w-3xl text-center">
+      <h1 class="text-4xl font-bold text-text">Download Delta Executor</h1>
+      <p class="mt-3 text-lg text-text-muted">Choose your platform to get started.</p>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-3">
+        {platforms.map((p) => (
+          <a href={p.href} class="card rounded-2xl p-7 text-left">
+            <Icon name={p.icon} class="h-10 w-10 text-primary-light" />
+            <h2 class="mt-4 text-xl font-semibold text-text">{p.label}</h2>
+            <p class="mt-1.5 text-sm text-text-muted">v{p.version} &middot; {p.size}</p>
+            <span class="mt-3 inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
+              <Icon name="tabler:check" class="h-3.5 w-3.5" />{p.note}
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-primary/10 px-6 py-16">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="text-2xl font-bold text-text">Not sure which one to pick?</h2>
+      <p class="mt-3 text-base leading-relaxed text-text-muted">If you're playing Roblox on your phone, choose the platform that matches your device, Android or iOS above. If you're on a computer, Delta Executor doesn't have a native Windows build, the PC guide walks you through running the Android version inside a free Android emulator instead. That's the same software, not a separate or lesser version, just a different way of running it on a desktop.</p>
+
+      <h2 class="mt-10 text-2xl font-bold text-text">What's the same on every platform</h2>
+      <div class="mt-4 grid gap-4 sm:grid-cols-2">
+        <div class="card rounded-2xl p-5">
+          <h3 class="flex items-center gap-2 text-base font-semibold text-text">
+            <Icon name="tabler:key" class="h-5 w-5 text-accent" />Free key system
+          </h3>
+          <p class="mt-2 text-sm leading-relaxed text-text-muted">Every platform uses the same free key system, you'll see an in-app popup the first time you launch Delta Executor with a link to get your key. There's no separate key page on this site, the link inside the app is the real one.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <h3 class="flex items-center gap-2 text-base font-semibold text-text">
+            <Icon name="tabler:shield" class="h-5 w-5 text-accent" />Real ban risk
+          </h3>
+          <p class="mt-2 text-sm leading-relaxed text-text-muted">Using any third-party executor goes against Roblox's Terms of Use on every platform equally. We won't tell you it's risk-free, because it isn't, that's true whether you're on Android, iOS, or PC.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <h3 class="flex items-center gap-2 text-base font-semibold text-text">
+            <Icon name="tabler:refresh" class="h-5 w-5 text-accent" />Same update cadence
+          </h3>
+          <p class="mt-2 text-sm leading-relaxed text-text-muted">We aim to patch within hours of most Roblox updates, regardless of platform. Android and PC (which runs the Android build) get updates at the same time; iOS sometimes lags slightly due to the extra sideloading steps involved.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <h3 class="flex items-center gap-2 text-base font-semibold text-text">
+            <Icon name="tabler:lock-open" class="h-5 w-5 text-accent" />No payment, ever
+          </h3>
+          <p class="mt-2 text-sm leading-relaxed text-text-muted">There's no paid tier, no premium unlock, and no subscription on any platform. If a site asks you to pay for Delta Executor, it isn't us.</p>
+        </div>
+      </div>
+
+      <div class="mt-8 rounded-2xl border border-primary/10 bg-bg-card/40 p-5 text-sm text-text-muted">
+        Each platform page below has its own full install walkthrough, system requirements, and troubleshooting table specific to that device, this page is just the starting point.
+      </div>
+    </div>
+  </section>
+</Layout>

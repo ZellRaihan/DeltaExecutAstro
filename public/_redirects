@@ -1,0 +1,35 @@
+# Cloudflare Pages Redirects, old URLs -> new Astro URL structure
+
+/about.html                       /about                    301
+/contact.html                     /contact                  301
+/disclaimer.html                  /disclaimer                301
+/terms.html                       /terms                    301
+/privacy.html                     /privacy                  301
+/download.html                    /download                 301
+/download-android.html            /download/android         301
+/download-ios.html                /download/ios              301
+/downloads/windows.html           /download/windows          301
+/downloads/android.html           /download/android         301
+/downloads/ios.html               /download/ios               301
+
+# Old per-version pages -> the new single platform pages (changelog is now
+# an inline toggle there, not a separate page)
+/downloads/android/v2-620.html    /download/android          301
+/downloads/android/v2-630.html    /download/android          301
+/downloads/android/v2-640.html    /download/android          301
+/downloads/android/v2-650.html    /download/android          301
+/downloads/android/v2-696.html    /download/android          301
+/downloads/android/v2-697.html    /download/android          301
+/downloads/android/v2-698.html    /download/android          301
+/downloads/android/v2-699.html    /download/android          301
+/downloads/android/v2-700.html    /download/android          301
+/downloads/android/v2-701.html    /download/android          301
+/downloads/android/v2-709.html    /download/android          301
+/downloads/android/v2-710.html    /download/android          301
+/downloads/android/v3-669.html    /download/android          301
+/downloads/ios/v655-00.html       /download/ios               301
+/downloads/ios/v658-50.html       /download/ios               301
+/downloads/ios/v660-00.html       /download/ios               301
+/downloads/ios/v662-53.html       /download/ios               301
+/downloads/ios/v2-701.html        /download/ios               301
+/downloads/ios/v2-710.html        /download/ios               301

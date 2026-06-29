@@ -1,0 +1,121 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getBreadcrumbSchema } from '../lib/site';
+
+const lastUpdated = 'March 15, 2025';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Disclaimer',
+    description: "Delta Executor's legal disclaimer outlining liability limitations and user responsibilities when using our Roblox exploit software.",
+    inLanguage: 'en-US',
+    datePublished: '2023-01-01',
+    dateModified: '2025-03-15',
+    publisher: {
+      '@type': 'Organization',
+      name: 'Delta Executor',
+      logo: 'https://deltaaexecutor.net/assets/Delta-Executor-Icon.webp',
+    },
+    about: {
+      '@type': 'Thing',
+      name: 'Legal Disclaimer',
+      description: 'Legal document outlining the limitations of liability for Delta Executor software',
+    },
+    mainEntity: {
+      '@type': 'Article',
+      headline: 'Delta Executor Disclaimer',
+      author: { '@type': 'Organization', name: 'Delta Executor Team' },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Delta Executor',
+        logo: { '@type': 'ImageObject', url: 'https://deltaaexecutor.net/assets/Delta-Executor-Icon.webp' },
+      },
+      datePublished: '2023-01-01',
+      dateModified: '2025-03-15',
+    },
+  },
+  getBreadcrumbSchema(Astro, [
+    { name: 'Home', path: '/' },
+    { name: 'Disclaimer', path: '/disclaimer' },
+  ]),
+];
+---
+
+<Layout
+  title="Disclaimer - Delta Executor | Legal Notice"
+  description="Read Delta Executor's disclaimer to understand the legal limitations of our service, user responsibilities, and liability limitations."
+  canonicalPath="/disclaimer"
+>
+  <Fragment slot="head">
+    {jsonLd.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
+  </Fragment>
+
+  <section class="bg-bg px-4 py-16 sm:px-6">
+    <div class="mx-auto max-w-3xl">
+      <h1 class="text-3xl font-bold sm:text-4xl">Disclaimer</h1>
+
+      <div class="mt-8 space-y-8 text-sm text-text">
+        <div>
+          <h2 class="text-lg font-semibold text-text">Legal Notice and Disclaimer</h2>
+          <p class="mt-2">This disclaimer ("Disclaimer") sets forth the general guidelines, disclosures, and terms of your use of the Delta Executor website ("Website"). This Disclaimer is a legally binding agreement between you ("User", "you" or "your") and Delta Executor Team ("Delta Executor Team", "we", "us" or "our").</p>
+        </div>
+
+        <!--
+          Note: this section previously said "for general informational and
+          educational purposes only," a claim that contradicts how this
+          product is actually marketed everywhere else on the site (a
+          Roblox gameplay-modification tool, not an educational resource).
+          Rewritten to describe the actual, honest purpose of this section,
+          limiting liability for software that genuinely modifies Roblox
+          gameplay, without the factually false "educational" framing.
+        -->
+        <div>
+          <h2 class="text-lg font-semibold text-text">What This Software Actually Is</h2>
+          <p class="mt-2">Delta Executor is a third-party Roblox script executor. It is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on this Website.</p>
+        </div>
+
+        <div>
+          <h2 class="text-lg font-semibold text-text">No Responsibility for Use</h2>
+          <p class="mt-2">Using Delta Executor goes against Roblox's Terms of Use, and we are not responsible for any use of our software in violation of any third-party terms of service. Users are solely responsible for ensuring their use of Delta Executor complies with all applicable rules, terms of service, and laws.</p>
+        </div>
+
+        <div>
+          <h2 class="text-lg font-semibold text-text">User Responsibility</h2>
+          <p class="mt-2">By using Delta Executor, you agree to:</p>
+          <ul class="mt-2 list-disc space-y-1.5 pl-5">
+            <li>Use the software in a manner that doesn't violate any third-party terms of service</li>
+            <li>Accept full responsibility for your actions while using our software</li>
+            <li>Not hold Delta Executor Team liable for any consequences resulting from the use of our software</li>
+            <li>Use the software at your own risk</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-lg font-semibold text-text">No Endorsement</h2>
+          <p class="mt-2">References to any third-party products, services, or organizations do not constitute or imply an endorsement, recommendation, or favoring by Delta Executor Team.</p>
+        </div>
+
+        <div>
+          <h2 class="text-lg font-semibold text-text">External Links</h2>
+          <p class="mt-2">The Website may contain links to external websites that are not provided or maintained by or in any way affiliated with Delta Executor Team. Please note that Delta Executor Team does not guarantee the accuracy, relevance, timeliness, or completeness of any information on these external websites.</p>
+        </div>
+
+        <div>
+          <h2 class="text-lg font-semibold text-text">Modification of Software</h2>
+          <p class="mt-2">Delta Executor is free software. Any modification or redistribution of our software is not permitted without express written consent from the Delta Executor Team.</p>
+        </div>
+
+        <div>
+          <h2 class="text-lg font-semibold text-text">Updates to Disclaimer</h2>
+          <p class="mt-2">We may update this Disclaimer from time to time. We will notify you of any changes by posting the new Disclaimer on this page. You are advised to review this Disclaimer periodically for any changes.</p>
+        </div>
+
+        <p class="border-t border-primary/10 pt-4 text-sm text-text-muted">Last updated: {lastUpdated}</p>
+      </div>
+    </div>
+  </section>
+</Layout>

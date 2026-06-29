@@ -1,0 +1,472 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import { getDeltaData } from '../data/versions';
+import { getSiteUrl, getBreadcrumbSchema } from '../lib/site';
+
+const deltaData = await getDeltaData();
+const android = deltaData.android[0];
+const ios = deltaData.ios[0];
+
+const faqs = [
+  {
+    q: 'What is the Delta executor?',
+    a: "With the Roblox exploit called Delta Executor, which is sometimes referred to as a script executor, players may alter the game's environment in more intricate ways. Delta is a premium executor for Roblox exploits that you can get for free right now.",
+  },
+  {
+    q: 'Is using Delta Executor safe?',
+    a: 'Like with any other exploit, you will be banned from Roblox if you are found to be using it. But according to several users, Delta Executor performs a fantastic job eluding detection and restrictions.',
+  },
+  {
+    q: "Why isn't Delta Executor working?",
+    a: 'The Delta executor may not be functioning for a number of reasons, including as an outdated exploit, interference from antivirus software, an unsupported game version, injection issues, an exploit server problem, and several OS-related failures.',
+  },
+  {
+    q: 'Which Roblox executor is best?',
+    a: 'The ideal Roblox executor is the Delta E version, which is available for free here and will make updates simply accessible.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Delta Executor',
+    operatingSystem: 'Android, iOS',
+    applicationCategory: 'GameApplication',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    softwareVersion: android.version,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+  getBreadcrumbSchema(Astro, [{ name: 'Home', path: '/' }]),
+];
+---
+
+<Layout
+  title={`Delta Executor v${android.version} - Best Free Roblox Exploits & Executor`}
+  description={`Download Delta Executor v${android.version} - The #1 free Roblox exploit for iOS & Android. Latest version: Android v${android.version} / iOS v${ios.version}. PC users can run via emulator.`}
+  canonicalPath="/"
+>
+  <Fragment slot="head">
+    {jsonLd.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
+  </Fragment>
+
+  <section class="relative overflow-hidden bg-gradient-to-b from-bg to-slate-900 px-6 py-24 text-center">
+    <img
+      src="/assets/Delta-Executor-Icon.webp"
+      alt="Delta Executor Logo"
+      class="mx-auto h-24 w-24 transition-transform duration-500 hover:scale-105"
+      width="96"
+      height="96"
+    />
+    <h1 class="mt-6 text-4xl font-bold leading-tight text-text sm:text-6xl">Delta Executor</h1>
+    <p class="mt-4 text-lg text-primary-light sm:text-xl">No.1 Exploit and Script Executor For Robolox</p>
+    <p class="mx-auto mt-3 max-w-xl text-base text-text-muted sm:text-lg">Get your premium-quality Roblox Exploit now - Always up to date and 100% free!</p>
+    <div class="mt-5 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-bg-card px-5 py-2 text-base">
+      <Icon name="tabler:git-branch" class="h-4 w-4 text-accent" />
+      <span class="text-text">Version V{android.version}</span>
+    </div>
+    <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+      <a href="/download/android" class="btn-primary inline-flex items-center gap-2 rounded-xl px-8 py-4 text-base font-semibold text-white">
+        <Icon name="tabler:brand-android" class="h-5 w-5" />Download for Android
+      </a>
+      <a href="/download/ios" class="card inline-flex items-center gap-2 rounded-xl px-8 py-4 text-base font-semibold text-text">
+        <Icon name="tabler:brand-apple" class="h-5 w-5" />Download for iOS
+      </a>
+      <a href="/download/windows" class="card inline-flex items-center gap-2 rounded-xl px-8 py-4 text-base font-semibold text-text">
+        <Icon name="tabler:brand-windows" class="h-5 w-5" />PC Guide (Emulator)
+      </a>
+    </div>
+  </section>
+
+  <section class="px-6 py-16" id="toc">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-center text-3xl font-bold text-text">Quick Navigation</h2>
+      <div class="mt-8 grid grid-cols-2 gap-5 sm:grid-cols-4">
+        {[
+          ['tabler:info-circle', 'About', 'Delta Executor overview', '#about-section'],
+          ['tabler:star', 'Features', 'Key capabilities and tools', '#features-section'],
+          ['tabler:download', 'Download', 'iOS, Android & PC', '#download'],
+          ['tabler:player-play', 'Video Demo', 'See it in action', '#video-demo'],
+          ['tabler:key', 'Key System', 'Activation guide', '#key-system-section'],
+          ['tabler:tool', 'Troubleshooting', 'Common fixes', '#troubleshooting-section'],
+          ['tabler:help-circle', 'FAQs', 'Common questions', '#faq-section'],
+        ].map(([icon, title, desc, href]) => (
+          <a href={href} class="card rounded-2xl p-5">
+            <Icon name={icon} class="h-6 w-6 text-accent" />
+            <h3 class="mt-3 text-base font-semibold text-text">{title}</h3>
+            <p class="mt-1 text-sm text-text-muted">{desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-bg-card/40 px-6 py-16" id="about-section">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="text-3xl font-bold text-text">About Delta Executor</h2>
+      <div class="mt-5 space-y-4 text-base leading-relaxed text-text-muted">
+        <p>Delta Executor is the most important Roblox Executor that helps users take advantage of the most well-liked Roblox games. It is jam-packed with updated scripts and programs that let users create and modify their own games. Originally developed for mobile platforms, Delta Executor brings powerful scripting capabilities to Android and iOS users everywhere. PC users can also enjoy the same features by running it through an Android emulator.</p>
+        <p>What makes the Roblox Delta Executor X Script unique is that it can be used without a particular key. You can execute the scripts and take advantage of the games without a key. This executor possesses strong security protections in addition to execution power. If players encounter an issue, the supporting staff is there to resolve the issue, thus there won't ever be any form of system error.</p>
+        <p>The best part is that the creators of Delta Executors constantly update and modify its graphical user interface (GUI), which is a major factor in its appeal to Roblox executor users. With so many gaming features to change a Roblox game's essence, Delta exploits is among the greatest gaming injectors. As a professional player, you may use it to fulfill your demands in the game.</p>
+      </div>
+
+      <div class="card mt-8 overflow-hidden rounded-2xl">
+        <table class="w-full text-base">
+          <tbody>
+            {[
+              ['Supportive OS', 'Android, iOS (PC via Emulator)'],
+              ['Size', '112 MB to 170 MB'],
+              ['Version', `v${android.version}`],
+              ['Last Updated', android.released],
+            ].map(([label, value]) => (
+              <tr class="border-b border-primary/10 last:border-0">
+                <td class="bg-bg-card/50 px-5 py-3 font-semibold text-text">{label}</td>
+                <td class="px-5 py-3 text-text-muted">{value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="px-6 py-10">
+    <img src="/assets/Delta-Executor-Banner.webp" alt="Delta Executor Banner" width="1200" height="630" class="mx-auto w-full max-w-5xl rounded-2xl transition-transform duration-500 hover:scale-[1.01]" />
+  </div>
+
+  <section class="px-6 py-16" id="features-section">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-3xl font-bold text-text">Delta Executor Features</h2>
+      <p class="mt-2 text-base text-text-muted">Delta has a variety of features that enhance the Roblox Exploits users' experience, like clouding;</p>
+
+      <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {[
+          ['tabler:code', 'Script Library', 'Access thousands of pre-made scripts for all popular Roblox games'],
+          ['tabler:device-mobile', 'Cross Platform', 'Enjoy the same powerful features on Android, iOS and PC (via emulator)'],
+          ['tabler:brush', 'Customizations', 'Personalize your executor interface with themes and layout options'],
+          ['tabler:key', 'Free key', 'No payment required - get your key for free through our simple system'],
+          ['tabler:refresh', 'Regular Updates', 'We update within hours of Roblox patches to ensure uninterrupted gameplay'],
+          ['tabler:users', 'User Friendly UI', 'Intuitive interface designed for both beginners and experienced users'],
+        ].map(([icon, title, desc]) => (
+          <div class="card rounded-2xl p-6">
+            <Icon name={icon} class="h-8 w-8 text-accent" />
+            <h3 class="mt-4 text-lg font-semibold text-text">{title}</h3>
+            <p class="mt-2 text-base text-text-muted">{desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-8 flex gap-4 rounded-2xl border border-amber-500/30 bg-amber-500/5 p-5">
+        <Icon name="tabler:alert-triangle" class="h-6 w-6 shrink-0 text-amber-400" />
+        <div>
+          <h3 class="text-lg font-semibold text-amber-200">Important Safety Warning</h3>
+          <p class="mt-1 text-base text-text-muted">Downloading Delta Executor from unofficial sources puts your device at serious risk of malware and your Roblox account at risk of being banned or hacked. Always use our official download links to ensure you're getting the genuine, virus-free version of Delta.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-bg-card/40 px-6 py-16">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-3xl font-bold text-text">Why Delta Executor Is The #1 Free Roblox Exploit</h2>
+      <p class="mt-2 text-base text-text-muted">In the competitive world of Roblox executors, Delta stands above all others. Our cutting-edge technology and dedication to excellence make us the #1 choice for serious gamers who demand the best - without paying a penny.</p>
+
+      <div class="card mt-8 overflow-hidden rounded-2xl">
+        <table class="w-full text-left text-base">
+          <thead>
+            <tr class="border-b border-primary/20 bg-bg-card">
+              <th class="px-5 py-4"></th>
+              <th class="px-5 py-4 text-primary-light">Delta Executor</th>
+              <th class="px-5 py-4 text-text-muted">Other Executors</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['Execution Speed', 'Ultra Fast', 'Slow & Laggy'],
+              ['Script Compatibility', '99.9% Compatible', 'Limited Support'],
+              ['Ban Risk', 'Same real risk as any executor', 'Same real risk as any executor'],
+              ['Regular Updates', 'Weekly Updates', 'Rarely Updated'],
+              ['Customer Support', '24/7 Support', 'Limited or None'],
+            ].map((row) => (
+              <tr class="border-b border-primary/10 last:border-0">
+                <td class="px-5 py-4 font-semibold text-text">{row[0]}</td>
+                <td class="px-5 py-4 text-accent">{row[1]}</td>
+                <td class="px-5 py-4 text-text-muted">{row[2]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-center text-3xl font-bold text-text">How to Download and Install</h2>
+      <p class="mx-auto mt-2 max-w-md text-center text-base text-text-muted">Step-by-step setup for whichever device you're using.</p>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-3">
+        {[
+          {
+            icon: 'tabler:brand-android',
+            title: 'Android',
+            badge: 'bg-emerald-500/15 text-emerald-400',
+            steps: [
+              <>Download the <strong class="text-text">Delta-Executor-Android.apk</strong> file from our official website.</>,
+              <>Enable installation from unknown sources in your device settings (Settings &gt; Security).</>,
+              <>Open the downloaded APK file and tap "Install".</>,
+              <>If prompted about Play Protect warnings, select "Install Anyway".</>,
+              <>Wait for the installation to complete.</>,
+              <>Launch Delta Executor from your app drawer.</>,
+              <>Enter your key when prompted in the app's own popup.</>,
+              <>Grant the necessary permissions when requested.</>,
+              <>Enjoy using Delta Executor on your Android device!</>,
+            ],
+            link: null,
+          },
+          {
+            icon: 'tabler:brand-apple',
+            title: 'iOS',
+            badge: 'bg-primary/15 text-primary-light',
+            steps: [
+              <>Download the <strong class="text-text">Delta-Executor-iOS.ipa</strong> file from our official website.</>,
+              <>Install <strong class="text-text">AltStore</strong> on your iOS device (requires a computer with iTunes installed).</>,
+              <>Connect your iOS device to your computer and open AltStore.</>,
+              <>Select the Delta-Executor-iOS.ipa file you downloaded.</>,
+              <>Wait for the installation to complete (this may take a few minutes).</>,
+              <>Trust the developer certificate in your device settings (Settings &gt; General &gt; Profiles).</>,
+              <>Launch Delta Executor and enter your key when prompted.</>,
+              <>Allow necessary permissions when requested by the app.</>,
+              <>Enjoy using Delta Executor on your iOS device!</>,
+            ],
+            link: null,
+          },
+          {
+            icon: 'tabler:brand-windows',
+            title: 'PC (via Emulator)',
+            badge: 'bg-accent/15 text-accent',
+            steps: [
+              <>Delta Executor is a mobile app - to use it on PC, you need an Android emulator.</>,
+              <>Download and install <strong class="text-text">BlueStacks 5</strong> or <strong class="text-text">LDPlayer 9</strong> from their official websites.</>,
+              <>Configure the emulator with at least 4GB RAM and enable virtualization in BIOS.</>,
+              <>Download the Delta Executor Android APK from our website.</>,
+              <>Drag and drop the APK into the emulator to install it.</>,
+              <>Install Roblox from the Google Play Store within the emulator.</>,
+              <>Launch Delta Executor and enter your key when prompted in the app.</>,
+              <>Enjoy Delta Executor on your PC with keyboard and mouse controls!</>,
+            ],
+            link: { href: '/download/windows', label: 'View Complete PC Setup Guide' },
+          },
+        ].map((platform) => (
+          <div class="card flex flex-col rounded-2xl p-6">
+            <div class="flex items-center gap-2.5">
+              <span class={`flex h-9 w-9 items-center justify-center rounded-lg ${platform.badge}`}>
+                <Icon name={platform.icon} class="h-5 w-5" />
+              </span>
+              <h3 class="text-lg font-semibold text-text">{platform.title}</h3>
+            </div>
+            <ol class="mt-5 space-y-3 text-sm leading-relaxed text-text-muted">
+              {platform.steps.map((step, i) => (
+                <li class="flex gap-3">
+                  <span class={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] font-semibold ${platform.badge}`}>
+                    {i + 1}
+                  </span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+            {platform.link && (
+              <a href={platform.link.href} class="mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary-light underline-offset-4 transition-colors hover:text-accent hover:underline">
+                {platform.link.label}<Icon name="tabler:arrow-right" class="h-3.5 w-3.5" />
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-bg-card/40 px-6 py-16" id="key-system-section">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="text-3xl font-bold text-text">Delta Executor Key</h2>
+      <p class="mt-2 text-base text-text-muted">Players of Roblox can soon obtain the confirmed delta executor key. In relation to this, they just go through these steps:</p>
+
+      <div class="card mt-8 rounded-2xl p-8">
+        <h3 class="text-lg font-semibold text-primary-light">Key Activation Steps</h3>
+        <ol class="mt-4 list-decimal space-y-2.5 pl-5 text-base text-text-muted">
+          <li>Launch the most recent version of the Delta exploit on a PC or Android device.</li>
+          <li>'Get Key' is the button to press.</li>
+          <li>The official button or URL for this key accomplishment is "https://auth.deltaexecut.net/getkey/," as given by us.</li>
+          <li>This is where its data is copied.</li>
+          <li>Navigate to the Google Chrome browser on your Android device or PC.</li>
+          <li>After that, paste the text of the delta key that you copied and continue. We have launched our official executor key page.</li>
+          <li>After permitting a few pop-ups, obtain your Delta Exploit Key.</li>
+          <li>Return to Delta-exploit now, and insert your key.</li>
+          <li>Lastly, press "Verify Key," then have fun.</li>
+        </ol>
+        <a href="https://auth.deltaexecut.net/getkey/" class="btn-primary mt-6 inline-flex items-center gap-2 rounded-xl px-6 py-3 text-base font-semibold text-white">
+          <Icon name="tabler:external-link" class="h-5 w-5" />Get Key Now
+        </a>
+      </div>
+
+      <div class="card mt-5 flex gap-4 rounded-2xl p-5">
+        <Icon name="tabler:info-circle" class="h-6 w-6 shrink-0 text-accent" />
+        <div class="text-base text-text-muted">
+          <h3 class="font-semibold text-text">Important Tips</h3>
+          <p class="mt-1">Users are required to change the key on a regular basis, nevertheless. This is due to the possibility that this key will expire soon.</p>
+          <p class="mt-1"><strong class="text-text">Last Updated:</strong> {android.released}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-16" id="download">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-center text-3xl font-bold text-text">Download Delta Executor</h2>
+      <p class="mt-2 text-center text-base text-text-muted">Experience the future of Roblox exploiting on any device. Fast, secure, and constantly updated.</p>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-2">
+        <div class="card rounded-2xl p-7">
+          <Icon name="tabler:brand-android" class="h-10 w-10 text-primary-light" />
+          <h3 class="mt-3 text-xl font-semibold text-text">Android</h3>
+          <div class="mt-2 flex gap-4 text-sm text-text-muted">
+            <span class="flex items-center gap-1"><Icon name="tabler:git-branch" class="h-4 w-4" />v{android.version}</span>
+            <span class="flex items-center gap-1"><Icon name="tabler:file-zip" class="h-4 w-4" />{android.fileSize}</span>
+            <span class="flex items-center gap-1"><Icon name="tabler:calendar" class="h-4 w-4" />{android.released}</span>
+          </div>
+          <ul class="mt-4 space-y-2 text-base text-text-muted">
+            <li class="flex items-center gap-2"><Icon name="tabler:check" class="h-5 w-5 text-accent" />No Root Required</li>
+            <li class="flex items-center gap-2"><Icon name="tabler:check" class="h-5 w-5 text-accent" />Script Hub Access</li>
+            <li class="flex items-center gap-2"><Icon name="tabler:check" class="h-5 w-5 text-accent" />Touch-Optimized UI</li>
+            <li class="flex items-center gap-2"><Icon name="tabler:check" class="h-5 w-5 text-accent" />Auto-Updates</li>
+          </ul>
+          <a href="/download/android" class="btn-primary mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-base font-semibold text-white">
+            Download for Android<Icon name="tabler:download" class="h-5 w-5" />
+          </a>
+        </div>
+
+        <div class="card rounded-2xl p-7">
+          <Icon name="tabler:brand-apple" class="h-10 w-10 text-primary-light" />
+          <h3 class="mt-3 text-xl font-semibold text-text">iOS</h3>
+          <div class="mt-2 flex gap-4 text-sm text-text-muted">
+            <span class="flex items-center gap-1"><Icon name="tabler:git-branch" class="h-4 w-4" />v{ios.version}</span>
+            <span class="flex items-center gap-1"><Icon name="tabler:file-zip" class="h-4 w-4" />{ios.fileSize}</span>
+            <span class="flex items-center gap-1"><Icon name="tabler:calendar" class="h-4 w-4" />{ios.released}</span>
+          </div>
+          <ul class="mt-4 space-y-2 text-base text-text-muted">
+            <li class="flex items-center gap-2"><Icon name="tabler:check" class="h-5 w-5 text-accent" />No Jailbreak Required</li>
+            <li class="flex items-center gap-2"><Icon name="tabler:check" class="h-5 w-5 text-accent" />Script Hub Access</li>
+            <li class="flex items-center gap-2"><Icon name="tabler:check" class="h-5 w-5 text-accent" />Touch-Optimized UI</li>
+            <li class="flex items-center gap-2"><Icon name="tabler:check" class="h-5 w-5 text-accent" />Auto-Updates</li>
+          </ul>
+          <a href="/download/ios" class="btn-primary mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-base font-semibold text-white">
+            Download for iOS<Icon name="tabler:download" class="h-5 w-5" />
+          </a>
+        </div>
+      </div>
+
+      <div class="card mt-6 flex gap-4 rounded-2xl p-5">
+        <Icon name="tabler:shield" class="h-6 w-6 shrink-0 text-accent" />
+        <div>
+          <h3 class="text-lg font-semibold text-text">Safe &amp; Secure Downloads</h3>
+          <p class="mt-1 text-base text-text-muted">All downloads are virus-free and regularly updated. For your safety, always download Delta Executor from our official website.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-bg-card/40 px-6 py-16" id="video-demo">
+    <div class="mx-auto max-w-3xl text-center">
+      <h2 class="text-3xl font-bold text-text">Delta Executor in Action</h2>
+      <p class="mt-2 text-base text-text-muted">Watch Delta Executor's capabilities in this demonstration video</p>
+      <div class="card mt-6 overflow-hidden rounded-2xl">
+        <div id="video-demo-embed" class="relative aspect-video w-full cursor-pointer" data-video-id="IDO0XoXtJO4">
+          <img
+            src="https://i.ytimg.com/vi/IDO0XoXtJO4/hqdefault.jpg"
+            alt="Delta Executor demo video thumbnail"
+            width="480"
+            height="360"
+            loading="lazy"
+            class="h-full w-full object-cover"
+          />
+          <div class="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors hover:bg-black/40">
+            <div class="flex h-16 w-16 items-center justify-center rounded-full bg-red-600 text-white shadow-lg">
+              <svg viewBox="0 0 24 24" class="h-7 w-7 fill-current"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Loads the real YouTube iframe only when the thumbnail is clicked,
+    // instead of on page load, so the ~770KB of YouTube's player JS never
+    // downloads at all for visitors who don't watch the video.
+    document.getElementById('video-demo-embed')?.addEventListener('click', (e) => {
+      const container = e.currentTarget as HTMLElement;
+      const videoId = container.dataset.videoId;
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      iframe.title = 'Delta Executor Demo Video';
+      iframe.className = 'absolute inset-0 h-full w-full';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      container.replaceChildren(iframe);
+    }, { once: true });
+  </script>
+
+  <section class="px-6 py-16" id="troubleshooting-section">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="text-3xl font-bold text-text">Troubleshooting Delta Executor</h2>
+      <p class="mt-2 text-base text-text-muted">Experiencing issues with Delta Executor? Here's how to fix common problems and get back to enjoying your favorite Roblox games.</p>
+
+      <div class="card mt-8 rounded-2xl p-8">
+        <div class="flex items-center gap-3">
+          <Icon name="tabler:alert-triangle" class="h-6 w-6 text-amber-400" />
+          <h3 class="text-lg font-semibold text-text">If the Delta Executor isn't inserting, what can you do?</h3>
+        </div>
+
+        <p class="mt-5 text-base leading-relaxed text-text-muted">Users need to make sure they are using the most recent version of Roblox, which can be accessed on the official website. It must not be used in conjunction with the Microsoft shop. This method frequently confuses users since, upon system check, their executor is successfully inserted.</p>
+
+        <p class="mt-4 text-base leading-relaxed text-text-muted">If the problem persists when attempting to insert your Delta exploit, make sure the executor's Pastebin is correctly checked and reinstalled. In the meanwhile, you may use Roblox Error Fixer to repair errors like these:</p>
+
+        <ol class="mt-5 space-y-3.5 text-base text-text-muted">
+          <li class="flex gap-3"><span class="font-semibold text-accent">1</span> Start using the Delta exploit on your gadget.</li>
+          <li class="flex gap-3"><span class="font-semibold text-accent">2</span> Navigate to the executor's settings and choose the "Delta Fixes" option. You may select "Install Dependencies" here.</li>
+          <li class="flex gap-3"><span class="font-semibold text-accent">3</span> The message section's new page opens.</li>
+          <li class="flex gap-3"><span class="font-semibold text-accent">4</span> The Roblox Error Fixer's "Start Fix" button should be selected. Press the "OK" button in the text section to proceed with your request.</li>
+          <li class="flex gap-3"><span class="font-semibold text-accent">5</span> Allow the system to insert your Delta Executor into your device by turning on the extra steps.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-bg-card/40 px-6 py-16" id="faq-section">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="text-center text-3xl font-bold text-text">FAQs</h2>
+      <div class="mt-8 space-y-3">
+        {faqs.map((f) => (
+          <details class="group card rounded-2xl p-5">
+            <summary class="flex cursor-pointer list-none items-center justify-between text-base font-semibold text-text marker:content-none">
+              {f.q}
+              <Icon name="tabler:chevron-down" class="h-5 w-5 shrink-0 text-accent transition-transform duration-300 group-open:rotate-180" />
+            </summary>
+            <p class="mt-3 text-base leading-relaxed text-text-muted">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
